@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using BenchmarkDotNet;
 using BenchmarkDotNet.Attributes;
 
 namespace Jsonite.Benchmarks
 {
+    [MemoryDiagnoser]
     public class BenchGenericDeserialize
     {
         private readonly string testJson;
@@ -15,49 +15,48 @@ namespace Jsonite.Benchmarks
         }
 
         [Benchmark(Description = "Textamina.Jsonite")]
-        public void TestJsonite()
+        public object TestJsonite()
         {
-            var result = Json.Deserialize(testJson);
+            return Json.Deserialize(testJson);
         }
 
         [Benchmark(Description = "Newtonsoft.Json")]
-        public void TestNewtonsoftJson()
+        public Dictionary<string, object> TestNewtonsoftJson()
         {
-            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(testJson);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(testJson);
         }
 
         [Benchmark(Description = "System.Text.Json (FastJsonParser)")]
-        public void TestSystemTextJson()
+        public Dictionary<string, object> TestSystemTextJson()
         {
-            var parser = new System.Text.Json.JsonParser();
-            var result = parser.Parse<Dictionary<string, object>>(testJson);
+            return System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(testJson);
         }
 
         [Benchmark(Description = "ServiceStack.Text")]
-        public void TestServiceStackText()
+        public Dictionary<string, object> TestServiceStackText()
         {
             // Force ServiceStack.Text to deserialize completely the object (otherwise it is deserializing only the first object level, which is not what we want to test here)
             ServiceStack.Text.JsConfig.ConvertObjectTypesIntoStringDictionary = true;
-            var result = (Dictionary<string, object>)ServiceStack.StringExtensions.FromJson<object>(testJson);
+            return (Dictionary<string, object>)ServiceStack.StringExtensions.FromJson<object>(testJson);
         }
 
         [Benchmark(Description = "fastJSON")]
-        public void TestFastJson()
+        public object TestFastJson()
         {
-            var result = fastJSON.JSON.Parse(testJson);
+            return fastJSON.JSON.Parse(testJson);
         }
 
         [Benchmark(Description = "Jil")]
-        public void TestJil()
+        public Dictionary<string, object> TestJil()
         {
-            var result = Jil.JSON.Deserialize<Dictionary<string, object>>(testJson);
+            return Jil.JSON.Deserialize<Dictionary<string, object>>(testJson);
         }
 
         [Benchmark(Description = "JavaScriptSerializer")]
-        public void TestJavaScriptSerializer()
+        public object TestJavaScriptSerializer()
         {
             var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            serializer.DeserializeObject(testJson);
+            return serializer.DeserializeObject(testJson);
         }
     }
 }

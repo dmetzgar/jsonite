@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{061866E2-005C-4D13-A338-EA464BBEC60F}"
 	ProjectSection(SolutionItems) = preProject
@@ -18,6 +18,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jsonite.Benchmarks", "Jsonite.Benchmarks\Jsonite.Benchmarks.csproj", "{39E21907-05A1-4C5C-B83E-EB225F88F34D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E7916EBE-D9C6-4FE6-B9C4-9A85E33707F7} = {E7916EBE-D9C6-4FE6-B9C4-9A85E33707F7}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0CE2C999-B233-444E-AF60-93F73863F659}"
+	ProjectSection(SolutionItems) = preProject
+		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
 Global
